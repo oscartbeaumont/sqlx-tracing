@@ -137,7 +137,7 @@ where
     /// Retrieves a connection and immediately begins a new transaction.
     ///
     /// The returned [`Transaction`] is instrumented for tracing.
-    pub async fn begin<'c>(&'c self) -> Result<Transaction<'c, DB>, sqlx::Error> {
+    pub async fn begin(&self) -> Result<Transaction<'static, DB>, sqlx::Error> {
         self.inner.begin().await.map(|inner| Transaction {
             inner,
             attributes: self.attributes.clone(),
